@@ -131,6 +131,16 @@ body {
   opacity: 0;
 }
 
+#detect-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  display: none;
+}
+
 canvas {
   position: absolute;
   inset: 0;
@@ -208,8 +218,28 @@ canvas {
 
 .drop-zone.hidden { display: none; }
 
-/* file input */
-input[type=file] { display: none; }
+/* Visually hidden file inputs — NOT display:none so programmatic .click() works on iOS */
+.file-hidden {
+  position: fixed;
+  top: -200px;
+  left: -200px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* file inputs inside labels (detect drop zone) */
+.btn-file input[type=file],
+input[type=file]:not(.file-hidden) { display: none; }
+
+/* drop zone button row */
+.drop-btns {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
 /* ── Detect actions ── */
 .detect-actions {

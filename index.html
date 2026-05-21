@@ -32,6 +32,7 @@
   <main class="main-layout">
     <!-- CANVAS ZONE -->
     <section class="canvas-zone">
+
       <!-- POSE mode -->
       <div id="pose-view" class="view active">
         <div class="canvas-wrapper">
@@ -42,30 +43,27 @@
             <span>Завантаження моделі…</span>
           </div>
           <div id="pose-start" class="start-overlay">
-            <button id="start-camera-btn" class="btn-primary">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M20.94 11A8.994 8.994 0 0 0 12 3a8.994 8.994 0 0 0-8.94 8"/><path d="M3.06 13A9 9 0 0 0 12 21a9 9 0 0 0 8.94-8"/></svg>
+            <button id="start-camera-btn" class="btn-primary" type="button">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M20.94 11A8.994 8.994 0 0 0 12 3a8.994 8.994 0 0 0-8.94 8"/><path d="M3.06 13A9 9 0 0 0 12 21a9 9 0 0 0 8.94-8"/></svg>
               Увімкнути камеру
             </button>
-            <p class="hint">Буде запитано дозвіл на камеру</p>
             <div class="or-divider"><span>або</span></div>
-            <label class="btn-secondary btn-file">
+            <button id="pose-photo-btn" class="btn-secondary" type="button">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
               Завантажити фото
-              <input type="file" id="pose-file-input" accept="image/*" />
-            </label>
+            </button>
           </div>
         </div>
         <div id="pose-actions" class="detect-actions hidden">
-          <button id="pose-camera-btn" class="btn-secondary">
+          <button id="pose-camera-btn" class="btn-secondary" type="button">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M20.94 11A8.994 8.994 0 0 0 12 3a8.994 8.994 0 0 0-8.94 8"/></svg>
             Камера
           </button>
-          <label class="btn-secondary btn-file">
+          <button id="pose-photo-btn-2" class="btn-secondary" type="button">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-            Нове фото
-            <input type="file" id="pose-file-input-2" accept="image/*" />
-          </label>
-          <button id="pose-save-btn" class="btn-secondary">
+            Фото
+          </button>
+          <button id="pose-save-btn" class="btn-secondary" type="button">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Зберегти
           </button>
@@ -75,32 +73,44 @@
       <!-- DETECT mode -->
       <div id="detect-view" class="view">
         <div class="canvas-wrapper">
+          <video id="detect-video" playsinline autoplay muted></video>
           <canvas id="detect-canvas"></canvas>
           <div id="detect-loader" class="loader hidden">
             <div class="spinner"></div>
             <span id="detect-loader-text">Завантаження моделі…</span>
           </div>
           <div id="detect-drop" class="drop-zone">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
             <p>Перетягніть фото або</p>
-            <label class="btn-primary btn-file">
-              Вибрати фото
-              <input type="file" id="file-input" accept="image/*" capture="environment" />
-            </label>
+            <div class="drop-btns">
+              <button id="detect-gallery-btn" class="btn-primary" type="button">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="15" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                Вибрати фото
+              </button>
+              <button id="detect-camera-btn" class="btn-secondary" type="button">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                Камера
+              </button>
+            </div>
             <p class="hint">JPG, PNG, WebP</p>
           </div>
         </div>
         <div id="detect-actions" class="detect-actions hidden">
-          <button id="new-photo-btn" class="btn-secondary">
+          <button id="new-photo-btn" class="btn-secondary" type="button">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
             Нове фото
           </button>
-          <button id="save-btn" class="btn-secondary">
+          <button id="detect-stop-camera-btn" class="btn-secondary hidden" type="button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+            Зупинити
+          </button>
+          <button id="save-btn" class="btn-secondary" type="button">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Зберегти результат
+            Зберегти
           </button>
         </div>
       </div>
+
     </section>
 
     <!-- SIDEBAR -->
@@ -165,7 +175,7 @@
               <button class="color-btn active" data-color="#00ff88" style="background:#00ff88" title="Зелений"></button>
               <button class="color-btn" data-color="#ff3d6b" style="background:#ff3d6b" title="Червоний"></button>
               <button class="color-btn" data-color="#3da9fc" style="background:#3da9fc" title="Синій"></button>
-              <button class="color-btn" data-color="#ffcc00" style="background:#ffcc00" title="Жовтий"></button>
+              <button class="color-btn" data-color="#FFD200" style="background:#FFD200" title="Жовтий"></button>
             </div>
           </div>
         </div>
@@ -242,6 +252,10 @@
       </button>
     </aside>
   </main>
+
+  <!-- Hidden file inputs — separate from buttons for reliable mobile triggering -->
+  <input type="file" id="pose-file-input" accept="image/*" class="file-hidden" />
+  <input type="file" id="detect-file-input" accept="image/*" class="file-hidden" />
 
   <!-- scripts (локальні копії, без CDN) -->
   <script src="vendor/camera_utils.js"></script>
