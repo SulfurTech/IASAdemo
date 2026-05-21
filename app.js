@@ -54,28 +54,18 @@ const poseStart   = document.getElementById('pose-start');
 const poseActions = document.getElementById('pose-actions');
 
 function showPoseStart() {
-  poseStart.style.display = '';
+  poseStart.classList.remove('hidden');
   poseActions.classList.add('hidden');
 }
 
 function showPoseActions() {
-  poseStart.style.display = 'none';
+  poseStart.classList.add('hidden');
   poseActions.classList.remove('hidden');
 }
 
-// ── Hidden file inputs (reliable cross-mobile pattern) ────────────────────
+// ── File inputs — triggered via <label for> in HTML (native iOS-safe) ──────
 const poseFileInput   = document.getElementById('pose-file-input');
 const detectFileInput = document.getElementById('detect-file-input');
-
-// POSE — start overlay photo button
-document.getElementById('pose-photo-btn').addEventListener('click', () => {
-  poseFileInput.click();
-});
-
-// POSE — actions bar photo button
-document.getElementById('pose-photo-btn-2').addEventListener('click', () => {
-  poseFileInput.click();
-});
 
 poseFileInput.addEventListener('change', e => {
   if (e.target.files[0]) handlePoseFile(e.target.files[0]);
@@ -208,10 +198,6 @@ async function rerunDetection() {
 const detectDrop    = document.getElementById('detect-drop');
 const detectActions = document.getElementById('detect-actions');
 const stopCameraBtn = document.getElementById('detect-stop-camera-btn');
-
-document.getElementById('detect-gallery-btn').addEventListener('click', () => {
-  detectFileInput.click();
-});
 
 detectFileInput.addEventListener('change', e => {
   if (e.target.files[0]) handleDetectFile(e.target.files[0]);

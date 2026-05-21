@@ -218,20 +218,9 @@ canvas {
 
 .drop-zone.hidden { display: none; }
 
-/* Visually hidden file inputs — NOT display:none so programmatic .click() works on iOS */
-.file-hidden {
-  position: fixed;
-  top: -200px;
-  left: -200px;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
-  pointer-events: none;
-}
+.file-hidden { display: none; }
 
-/* file inputs inside labels (detect drop zone) */
-.btn-file input[type=file],
-input[type=file]:not(.file-hidden) { display: none; }
+label.btn-primary, label.btn-secondary { user-select: none; }
 
 /* drop zone button row */
 .drop-btns {

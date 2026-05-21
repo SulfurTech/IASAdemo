@@ -60,17 +60,20 @@ const YoloModule = (() => {
 
     try {
       ort.env.wasm.wasmPaths = 'vendor/';
+      ort.env.wasm.numThreads = 1; // GitHub Pages has no COOP/COEP → SharedArrayBuffer unavailable
       session = await ort.InferenceSession.create('models/yolov8n.onnx', {
         executionProviders: ['wasm'],
       });
       loaderText.textContent = 'Модель готова';
-    } catch (err) {
-      loaderText.textContent = 'Помилка завантаження моделі';
-      console.error('ONNX load error:', err);
-      throw err;
-    } finally {
       loader.classList.add('hidden');
       modelLoading = false;
+    } catch (err) {
+      const msg = err && err.message ? err.message : String(err);
+      loaderText.textContent = '⚠ ' + msg;
+      loader.classList.remove('hidden');
+      console.error('ONNX load error:', err);
+      modelLoading = false;
+      throw err;
     }
   }
 
